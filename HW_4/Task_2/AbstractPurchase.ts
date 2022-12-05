@@ -28,6 +28,6 @@ export abstract class AbstractPurchase {
     abstract log(): string;
 
     public compare(purchase: AbstractPurchase): boolean {
-        return this.getCost() <= purchase.getCost();
+        return this.getCost() >= purchase.getCost();
     }
 }
