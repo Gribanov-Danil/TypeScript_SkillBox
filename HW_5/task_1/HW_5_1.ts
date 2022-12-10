@@ -1,50 +1,79 @@
-type AgeObject<T, J> = {
-    objectType: T,
+interface HasAge {
     age: number
-    data?: J
 }
 
-type Name = {
-    name: string
+type Person = HasAge & {
+    name: string,
+    age: number,
+
 }
 
-type City = {
-    city: string
+type Bridge = HasAge & {
+    city: string,
+    age: number,
+
+
 }
 
-type Manufacturer = {
-    manufacturer: string
+
+type Wine = HasAge & {
+    manufacturer: string,
+    age: number,
+    grade: string,
 }
 
-type Grade = {
-    grade: string
-}
-
-type Person = AgeObject<Name, undefined>;
-type Bridge = AgeObject<City, undefined>;
-type Wine = AgeObject<Manufacturer, Grade>
-
-
-function getOldestPerson(items: Person[]): Person {
+function getOldest<T extends HasAge>(items: T[]): T {
     return items.sort((a, b) => b.age - a.age)[0];
 }
 
+let wines: Wine[] = [
+    {
+    manufacturer: "Кузбасс",
+    age: 19,
+    grade: "Программная инженерения"
+    },
+    {
+        manufacturer: "Кубань",
+        age: 10,
+        grade: "Красное"
+    },
+    {
+        manufacturer: "Шато тамань",
+        age: 15,
+        grade: "Черное"
+    },
+]
 
-function getOldestWine(items: Wine[]): Wine {
-    return items.sort((a, b) => b.age - a.age)[0];
-}
+let briges: Bridge[] = [
+    {
+        age: 20,
+        city: "Новокузнецк"
+    },
+    {
+        age: 150,
+        city: "Екатеринбург"
+    },
+    {
+        age: 70,
+        city: "Шерегеш"
+    }
+]
 
+let persons: Person[] = [
+    {
+      age: 20,
+      name: "Данил"
+    },
+    {
+        age: 19,
+        name: "Иван"
+    },
+    {
+        age: 154894,
+        name: "Кто?"
+    },
+]
 
-function getOldestBridge(items: Bridge[]): Bridge {
-    return items.sort((a, b) => b.age - a.age)[0];
-}
-
-let pivo: Wine = {
-    objectType: {"pivot"},
-
-}
-
-let winesCollection: Wine[] =[
-    {"Франция",}
-];
-
+console.log(getOldest(wines));
+console.log(getOldest(briges));
+console.log(getOldest(persons));
